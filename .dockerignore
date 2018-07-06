@@ -6,3 +6,4 @@ Dockerfile
 .gitignore
 .travis.yml
 .env
+.git
