@@ -4,4 +4,4 @@ node_js:
   - "node"
 services:
   - docker
-script: npm test && docker build -t iluvzhouying/shift-scheduler-api . && echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push iluvzhouying/shift-scheduler-api:$(git log -1 --pretty=%h)
+script: ./push_image
