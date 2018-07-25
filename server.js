@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
+const terminus = require('@godaddy/terminus');
 
 const Scheduler = require('./models/scheduler');
 const Employee = require('./models/employee');
@@ -12,6 +13,14 @@ const scheduler = new Scheduler();
 scheduler.createSchedules();
 
 process.env.NODE_ENV === "development" ? app.use(morgan('dev')) : app.use(morgan('combined'))
+
+terminus(app, {
+   healthChecks: {
+    '/healthcheck': async () => {
+      return Promise.resolve()
+    },
+  },
+})
 
 app.get('/api/shifts', (req, res) => {
   if (req.query.employeeId) {
