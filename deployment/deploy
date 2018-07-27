@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+./test
+
+./push_image
+
+./install
+

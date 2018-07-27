@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+gcloud auth activate-service-account --key-file=tavis-ci-srv-account.json
+
+project_id="$(gcloud projects list  --format="csv[no-heading](PROJECT_ID)")"
+cluster="$(gcloud container clusters list --format="csv[no-heading](NAME)")"
+zone="$(gcloud container clusters list --format="csv[no-heading](LOCATION)")"
+
+gcloud container clusters get-credentials "${cluster}" --zone "${zone}" --project "${project_id}"
+
+helm package ../shift-scheduler-api/  --app-version "9a9c625"
+helm upgrade --install shift-scheduler-api --set image.tag=9a9c625 shift-scheduler-api-0.1.0.tgz --debug --dry-run
