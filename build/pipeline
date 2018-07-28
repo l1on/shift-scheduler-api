@@ -2,7 +2,7 @@
 
 set -euxo pipefail
 
-scripts/test
+build/scripts/test
 
-scripts/push_image
+build/scripts/push_image
 
