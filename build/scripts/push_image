@@ -3,11 +3,8 @@
 set -euxo pipefail
 
 readonly IMAGE_NAMESPACE='iluvzhouying'
-readonly IMAGE_NAME='shift-scheduler-api'
-readonly GIT_COMMIT_SHORT=$(git log -1 --pretty=%h)
-readonly IMAGE="${IMAGE_NAMESPACE}/${IMAGE_NAME}:${GIT_COMMIT_SHORT}"
-
-npm test 
+readonly IMAGE_NAME='shift-scheduler-api' 
+readonly IMAGE="${IMAGE_NAMESPACE}/${IMAGE_NAME}:$(git log -1 --pretty=%h)"
 
 docker build -t ${IMAGE} . 
 

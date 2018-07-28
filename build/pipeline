@@ -2,9 +2,7 @@
 
 set -euxo pipefail
 
-./test
+scripts/test
 
-./push_image
-
-./install
+scripts/push_image
 
