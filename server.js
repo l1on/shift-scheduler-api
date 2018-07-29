@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const http = require('http');
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
@@ -14,14 +15,6 @@ scheduler.createSchedules();
 
 process.env.NODE_ENV === "development" ? app.use(morgan('dev')) : app.use(morgan('combined'))
 
-terminus(app, {
-   healthChecks: {
-    '/healthcheck': async () => {
-      return Promise.resolve()
-    },
-  },
-})
-
 app.get('/api/shifts', (req, res) => {
   if (req.query.employeeId) {
     // If the requested URL is in the form of /shifts?employeeId=, 
@@ -34,4 +27,14 @@ app.get('/api/shifts', (req, res) => {
   }
 });
 
-app.listen(process.env.PORT);
+const server = http.createServer(app);
+
+terminus(server, {
+  healthChecks: {
+   '/healthcheck': async () => {
+     return Promise.resolve()
+   },
+ },
+})
+
+server.listen(process.env.PORT);
