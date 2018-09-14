@@ -15,7 +15,7 @@ scheduler.createSchedules();
 
 process.env.NODE_ENV === "development" ? app.use(morgan('dev')) : app.use(morgan('combined'))
 
-app.get('/api/shifts', (req, res) => {
+app.get('/shifts', (req, res) => {
   if (req.query.employeeId) {
     // If the requested URL is in the form of /shifts?employeeId=, 
     // send back schedules specific to the requested employee.
