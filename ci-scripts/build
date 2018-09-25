@@ -3,7 +3,7 @@
 set -euxo pipefail
 
 readonly IMAGE_NAMESPACE='iluvzhouying'
-readonly IMAGE_NAME='shift-scheduler-api' 
+readonly IMAGE_NAME='shift-scheduler-shifts' 
 readonly IMAGE="${IMAGE_NAMESPACE}/${IMAGE_NAME}:$(git log -1 --pretty=%h)"
 
 docker build -t ${IMAGE} . 

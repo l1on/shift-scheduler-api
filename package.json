@@ -1,5 +1,5 @@
 {
-  "name": "shift-scheduler-api",
+  "name": "shift-scheduler-shifts",
   "private": true,
   "main": "server.js",
   "scripts": {
