@@ -10,20 +10,19 @@ const Scheduler = require('./models/scheduler');
 const Employee = require('./models/employee');
 
 const scheduler = new Scheduler();
-// Create schedules asynchronously when the server starts.
-scheduler.createSchedules();
 
 process.env.NODE_ENV === "development" ? app.use(morgan('dev')) : app.use(morgan('combined'))
 
-app.get('/api/shifts', (req, res) => {
+app.get('/shifts', async (req, res) => {
+  const schedules = await scheduler.createSchedules();
   if (req.query.employeeId) {
     // If the requested URL is in the form of /shifts?employeeId=, 
     // send back schedules specific to the requested employee.
     const employee = new Employee(parseInt(req.query.employeeId));
-    res.json(employee.retrieveShifts(scheduler.getSchedules()));
+    res.json(employee.retrieveShifts(schedules));
   }
   else { // Otherwise, we'll get schedules for all employees.
-    res.json(scheduler.getSchedules());
+    res.json(schedules);
   }
 });
 

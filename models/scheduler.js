@@ -3,14 +3,6 @@ const _ = require('lodash');
 const constants = require('../lib/constants');
 
 module.exports = class Scheduler {
-    constructor() {
-        this.schedules = [];
-    }
-
-    getSchedules() {
-        return this.schedules;
-    }
-
     /**
      * This method returns a promise that will get resolved with all the conditions
      * to be met by the scheduler.
@@ -34,7 +26,7 @@ module.exports = class Scheduler {
     async createSchedules() {
         const [employees, rules, timeoffs] = await this.getConstraints();
 
-        this.schedules = this.createMonthlySchedules(employees.map(employee => employee.id), rules, timeoffs);
+        return this.createMonthlySchedules(employees.map(employee => employee.id), rules, timeoffs);
     }
 
     /**
