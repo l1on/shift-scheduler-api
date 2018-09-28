@@ -33,8 +33,8 @@ app.get('/metrics', (req, res) => {
 });
 
 const histogram = new prometheus.Histogram({
-  name: 'shifts_http_request_duration_seconds',
-  help: 'measures how long a GET request to /shifts takes',
+  name: 'http_request_duration_seconds',
+  help: 'measures how long a GET request takes',
   labelNames: ['method', 'handler']
 });
 
